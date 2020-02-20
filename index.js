@@ -4,7 +4,7 @@ const welcomeRouter = require("./welcome/welcome-router")
 const shoutsRouter = require("./shouts/shouts-router")
 
 const server = express()
-const port = 4000
+const port = process.env || 4000;
 
 server.use(helmet())
 server.use(express.json())
@@ -14,7 +14,7 @@ server.use("/shouts", shoutsRouter)
 server.use((err, req, res, next) => {
 	console.log(err)
 	res.status(500).json({
-		message: "Something went wrong",
+		message: process.env.SECRET_KEY || "Well, your secret no longer works now.",
 	})
 })
 
